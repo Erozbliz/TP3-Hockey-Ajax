@@ -16,19 +16,14 @@ $("#btRefresh2").click(function(){
 
 
 $("#btRefresh").click(function(){
-    var idmysoluce = "eee";
-    var varmysoluce = "eee"; //indice
    //A garder
    $.ajax({
-        url: '../includes/indice_ajax.php',
-        type: 'POST', 
-        data: {
-            dataSoluce: varmysoluce, 
-            dataId: idmysoluce,
-        },
-        success: function(data) {
-            var jsondata=data; 
+        url: 'http://127.0.0.1:4444/echoGet',
+        type: 'GET',
+        success: function(data,callback) {
+           // var jsondata=data; 
             alert (data);
+            $(".div1").html(callback + " : " + data);
         },
         error: function(json) {
             alert('erreur btRefresh');
