@@ -18,7 +18,7 @@ $("#btRefresh2").click(function(){
 $("#btRefresh").click(function(){
    //A garder
    $.ajax({
-        url: 'http://127.0.0.1:4444/echoGet',
+        url: 'http://127.0.0.1:4444/getListMatch',
         type: 'GET',
         success: function(data,callback) {
            // var jsondata=data; 
@@ -36,7 +36,7 @@ $("#btRefresh").click(function(){
 $("#btAutoRefresh").click(function(){
     var varmysoluce = "eee";
    $.ajax({
-        url: '../includes/indice_ajax.php',
+        url: 'http://127.0.0.1:4444/getListMatch',
         type: 'POST', 
         data: {
             dataSoluce: varmysoluce, 
