@@ -32,7 +32,7 @@ $("#btRefresh").click(function(){
     });
 });
 
-
+/*
 $("#btAutoRefresh").click(function(){
     var varmysoluce = "eee";
    $.ajax({
@@ -50,6 +50,53 @@ $("#btAutoRefresh").click(function(){
             $(".div1").html(" erreur btAutoRefresh");
         }
     });
+});*/
+
+function refrehListMatch() {
+   var varmysoluce = "eee";
+   $.ajax({
+        url: 'http://127.0.0.1:4444/getListMatch',
+        type: 'POST', 
+        data: {
+            dataSoluce: varmysoluce, 
+        },
+        success: function(data) {
+            var jsondata=data; 
+            alert (data);
+        },
+        error: function(json) {
+            alert('erreur btAutoRefresh');
+            $(".div1").html(" erreur btAutoRefresh");
+        }
+    });
+};
+
+//bouton a off par défaut
+var boolSwitch = false;
+var counter = null;
+$("#btAutoRefresh").click(function(){
+     if(boolSwitch==false){
+        var seconde = 5;
+        var cnt = 0;
+        boolSwitch = true;
+       // while(boolSwitch==true){
+            counter = setInterval(function() {
+                if (cnt < seconde) {
+                    console.log(cnt);
+                    $('.divTimer').html(cnt);
+                    cnt++;
+                    if(cnt==seconde){
+                        refrehListMatch();
+                    $('.divTimer').html("0");
+                        cnt=0;
+                    }
+                }
+            }, 1000);
+       // }       
+    }else{
+        boolSwitch = false;
+        //on kill le compteur
+        clearInterval(counter);
+    }
+    console.log(boolSwitch);
 });
-
-
