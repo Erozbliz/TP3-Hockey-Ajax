@@ -57,74 +57,39 @@ function miseAjourListHtml(data){
 }
 
 
-
+//Mise à jour pour la liste
 function miseAjourParis(data){
-
     $(document).ready(function() {
-        
-  // initialize
-  $('select').material_select();
-   var jsondata = JSON.parse(data);
-   alert(jsondata);
+      // initialize
+      $('select').material_select();
+       var jsondata = JSON.parse(data);
+       //alert(jsondata);
 
-  
-  //$("#myButton").click(function() {
-    
-    // clear contents
-    var $selectDropdown = 
-      $("#dropdownid")
-        .empty()
-        .html(' ');
+        // clear contents
+        var $selectDropdown = 
+          $("#dropdownid")
+            .empty()
+            .html(' ');
 
-    // add new value
-    var value = "rrr";
-    for(var i=0;i<Object.keys(jsondata).length;i++){
-        $selectDropdown.append(
-          $("<option></option>")
-            .attr("value",i)
-            .text(jsondata[i]['0'])
-        );
-    }
+        for(var i=0;i<Object.keys(jsondata).length;i++){
+            $selectDropdown.append(
+              $("<option></option>")
+                .attr("value",i)
+                .text(jsondata[i]['0'])
+            );
+        }
 
-    // trigger event
-    $selectDropdown.trigger('contentChanged');
- // });
-
-
-  $('select').on('contentChanged', function() {
-    // re-initialize (update)
-    $(this).material_select();
-  });
-  $('select').material_select();
-  
-});
+        // trigger event
+        $selectDropdown.trigger('contentChanged');
+        $('select').on('contentChanged', function() {
+        // re-initialize (update)
+        $(this).material_select();
+      });
+      $('select').material_select();
+    });
 }
 
 
-
-
-function miseAjourParis2(data){
-    var jsondata = JSON.parse(data);
-    //$("#selectOption").html("");
-    var str= "";
-   /* str += '<select>';
-    str += '<option value="" disabled selected>Choisir le Match</option>';
-    for(var i=0;i<Object.keys(jsondata).length;i++){
-        str += ' <option value="0">Match '+jsondata[i]['0']+'</option>';
-    }
-    str += '</select>';
-    str += '<label>Paris Match</label>';*/
-    //str= '<select><option value="" disabled selected>Choisir le Match</option><option value="0">Match 0</option><option value="1">Match 1</option><option value="2">Match 2</option></select><label>Paris Match</label>';
-    str +=  '<option value="22">Match 76</option>';
-    //$(str).appendTo(".mySelect");
-    $(".selectOption").append(str);
-
-
-
-    $(document).ready(function() {
-        $('select').material_select();
-     });
-}
 
 //Utiliser pour l'autorefresh
 function refrehListMatch() {
@@ -171,6 +136,30 @@ $("#btAutoRefresh").click(function(){
     console.log(boolSwitch);
 });
 
+
+
+
+
+$("#btEnvoieParis").click(function(){
+    var user ="user1";
+    var match ="0";
+    var equipe ="1";
+    var somme = "200";
+   $.ajax({
+        url: 'http://127.0.0.1:4444/postParis',
+        type: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: { user: user, match: match, equipe: equipe, somme : somme },
+        success: function(data,callback) {
+            var str = String(data);
+            $(".divParis").html(callback +" : "+data);
+          
+        },
+        error: function(json) {
+            $(".divParis").html(" erreur paris");
+        }
+    });
+});
 
 
 
