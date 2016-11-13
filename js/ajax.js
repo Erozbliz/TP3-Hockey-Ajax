@@ -23,9 +23,10 @@ $("#btRefresh").click(function(){
         success: function(data,callback) {
             $(".div1").html(callback);
             miseAjourListHtml(data);
+            miseAjourParis(data);
         },
         error: function(json) {
-            alert('erreur btRefresh');
+           // alert('erreur btRefresh');
             $(".div1").html(" erreur ");
         }
     });
@@ -38,8 +39,8 @@ function miseAjourListHtml(data){
     //     num_match:[Name,ButEquipe1,ButEquipe2,PenaltyEquipe1,PenaltyEquipe2,Date,StatusMatch]
     //Exemple = {"0":["red1 VS blue1",4,1,0,0,"2016\/11\/12 18:26:54","PERIODE 1"]}
     var jsondata = JSON.parse(data);
-    //alert ("jsondata[0]['0']");
-    alert ("Il y a "+Object.keys(jsondata).length+" matchs");
+    //alert ("jsondata[0]['0']"); //à garder
+    //alert ("Il y a "+Object.keys(jsondata).length+" matchs");
     //On efface l'ancien html
     $("#idListMatch").html("");
     var str= "";
@@ -55,6 +56,76 @@ function miseAjourListHtml(data){
     }
 }
 
+
+
+function miseAjourParis(data){
+
+    $(document).ready(function() {
+        
+  // initialize
+  $('select').material_select();
+   var jsondata = JSON.parse(data);
+   alert(jsondata);
+
+  
+  //$("#myButton").click(function() {
+    
+    // clear contents
+    var $selectDropdown = 
+      $("#dropdownid")
+        .empty()
+        .html(' ');
+
+    // add new value
+    var value = "rrr";
+    for(var i=0;i<Object.keys(jsondata).length;i++){
+        $selectDropdown.append(
+          $("<option></option>")
+            .attr("value",i)
+            .text(jsondata[i]['0'])
+        );
+    }
+
+    // trigger event
+    $selectDropdown.trigger('contentChanged');
+ // });
+
+
+  $('select').on('contentChanged', function() {
+    // re-initialize (update)
+    $(this).material_select();
+  });
+  $('select').material_select();
+  
+});
+}
+
+
+
+
+function miseAjourParis2(data){
+    var jsondata = JSON.parse(data);
+    //$("#selectOption").html("");
+    var str= "";
+   /* str += '<select>';
+    str += '<option value="" disabled selected>Choisir le Match</option>';
+    for(var i=0;i<Object.keys(jsondata).length;i++){
+        str += ' <option value="0">Match '+jsondata[i]['0']+'</option>';
+    }
+    str += '</select>';
+    str += '<label>Paris Match</label>';*/
+    //str= '<select><option value="" disabled selected>Choisir le Match</option><option value="0">Match 0</option><option value="1">Match 1</option><option value="2">Match 2</option></select><label>Paris Match</label>';
+    str +=  '<option value="22">Match 76</option>';
+    //$(str).appendTo(".mySelect");
+    $(".selectOption").append(str);
+
+
+
+    $(document).ready(function() {
+        $('select').material_select();
+     });
+}
+
 //Utiliser pour l'autorefresh
 function refrehListMatch() {
    $.ajax({
@@ -63,9 +134,10 @@ function refrehListMatch() {
         success: function(data,callback) {
             $(".div1").html(callback);
             miseAjourListHtml(data);
+            miseAjourParis(data);
         },
         error: function(json) {
-            alert('erreur btAutoRefresh');
+            //alert('erreur btAutoRefresh');
             $(".div1").html(" erreur btAutoRefresh");
         }
     });
