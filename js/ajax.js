@@ -142,9 +142,11 @@ $("#btAutoRefresh").click(function(){
 
 $("#btEnvoieParis").click(function(){
     var user ="user1";
-    var match ="0";
-    var equipe ="1";
-    var somme = "200";
+    var match = $("#dropdownid").find('option:selected').attr('id');;
+    var equipe = $('input[name="group1"]:checked').val();
+    var somme = $("#inputSomme").val();
+
+    alert("--"+user+"--"+match+"--equipe="+equipe+"--"+somme)
    $.ajax({
         url: 'http://127.0.0.1:4444/postParis',
         type: 'POST',
