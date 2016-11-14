@@ -58,7 +58,7 @@ function miseAjourListHtml(data){
 }
 
 
-//Mise à jour pour la liste
+//Mise à jour pour la liste des paris
 function miseAjourParis(data){
     $(document).ready(function() {
       // initialize
@@ -143,12 +143,13 @@ $("#btAutoRefresh").click(function(){
 
 $("#btEnvoieParis").click(function(){
     var user ="user1";
-    var match = $("#dropdownid").find('option:selected').attr('id');;
+    //var match = $("#dropdownid").find('option:selected').attr('id');
+    var match = $("#dropdownid")[0].selectedIndex;
     var equipe = $('input[name="group1"]:checked').val();
     var somme = $("#inputSomme").val();
     var user = $.cookie("userName");
 
-    alert("--"+user+"--"+match+"--equipe="+equipe+"--"+somme)
+    alert("--"+user+"--match="+match+"--equipe="+equipe+"--"+somme)
     if(user!=null && equipe!=null && somme!=null){
         $.ajax({
             url: 'http://127.0.0.1:4444/postParis',
