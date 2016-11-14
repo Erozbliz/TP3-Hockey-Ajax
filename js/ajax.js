@@ -33,7 +33,7 @@ $("#btRefresh").click(function(){
 });
 
 
-//Pemet de mettre a jour la liste des matchs dynamiquement
+//Pemet de mettre a jour + générer la liste des matchs dynamiquement
 function miseAjourListHtml(data){
      //       [0]       0   1           2           3               4           5       6
     //     num_match:[Name,ButEquipe1,ButEquipe2,PenaltyEquipe1,PenaltyEquipe2,Date,StatusMatch]
@@ -49,7 +49,8 @@ function miseAjourListHtml(data){
         str +='<div class="collapsible-header"><i class="material-icons">games</i>Match '+i+' : '+jsondata[i]['0']+'</div>';
         str +='<div class="collapsible-body">';
         str +='<p> Résultats : '+jsondata[i]['1']+' / '+jsondata[i]['2']+'<br> Pénalité : '+jsondata[i]['3']+' / '+jsondata[i]['4']+' <br>';
-        str +=' Chrono : '+jsondata[i]['5']+' <br> Status : '+jsondata[i]['6']+'  <br> </p>';
+        str +='  Match commencé à '+jsondata[i]['5']+' <br> Chorno : '+jsondata[i]['5']+' (- current_date)  <br> ';
+        str +='  Status : '+jsondata[i]['6']+'  <br> </p>';
         str +='</div>';
         str +='</li>';
        $("#idListMatch").html(str);
@@ -145,24 +146,60 @@ $("#btEnvoieParis").click(function(){
     var match = $("#dropdownid").find('option:selected').attr('id');;
     var equipe = $('input[name="group1"]:checked').val();
     var somme = $("#inputSomme").val();
+    var user = $.cookie("userName");
 
     alert("--"+user+"--"+match+"--equipe="+equipe+"--"+somme)
-   $.ajax({
-        url: 'http://127.0.0.1:4444/postParis',
-        type: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        data: { user: user, match: match, equipe: equipe, somme : somme },
-        success: function(data,callback) {
-            var str = String(data);
-            $(".divParis").html(callback +" : "+data);
-          
-        },
-        error: function(json) {
-            $(".divParis").html(" erreur paris");
-        }
-    });
+    if(user!=null && equipe!=null && somme!=null){
+        $.ajax({
+            url: 'http://127.0.0.1:4444/postParis',
+            type: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: { user: user, match: match, equipe: equipe, somme : somme },
+            success: function(data,callback) {
+                var str = String(data);
+                $(".divParis").html(callback +" : "+data);
+              
+            },
+            error: function(json) {
+                $(".divParis").html(" erreur paris");
+            }
+        });
+    }else{
+        alert("Merci de bien sélectionner")
+    }
 });
 
+//nouveau user + nouveau cookie
+$("#btChangeUser").click(function(){
+    $.removeCookie("userName");
+    printRandUser();
+});
+
+
+//fonction qui permet de générer un utilisateur alétoire pour les paris
+function generateRandUser(){
+    var myvar = Math.floor((Math.random() * 1000) + 1);
+    var strRandUser = "user"+myvar;
+    return strRandUser;
+}
+
+//affiche le nom d'un utilisateur aléatoire + Cookie : userName
+function printRandUser(){
+    console.debug("ATTENTION CHROME NE SUPPORTE PAS LES COOKIES LOCAL"); 
+    //console.debug($.cookie("userName")); 
+    var randUser = generateRandUser();
+    $("#userName").html(randUser);
+    $.cookie("userName", randUser, {Path: "/", expires: 30});
+    console.debug($.cookie("userName"));
+}
+
+//genere un utilisateur au chargement de la page
+if($.cookie("userName")!=null){
+    console.debug("Cookie userName trouvé"); 
+    $("#userName").html($.cookie("userName"));
+}else{
+    window.onload = printRandUser;
+}
 
 
 
