@@ -120,7 +120,7 @@ $("#btAutoRefresh").click(function(){
         counter = setInterval(function() {
             if (cnt < seconde) {
                 console.log(cnt);
-                $('.divTimer').html(cnt);
+                $('.divTimer').html(cnt+1);
                 cnt++;
                 if(cnt==seconde){
                     refrehListMatch();
