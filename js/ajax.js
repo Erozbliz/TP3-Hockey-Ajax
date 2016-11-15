@@ -45,11 +45,30 @@ function miseAjourListHtml(data){
     $("#idListMatch").html("");
     var str= "";
     for(var i=0;i<Object.keys(jsondata).length;i++){
+        var mydate = new Date(jsondata[i]['5']);
+        var d = new Date();
+        var n = d.getTime();
+        console.log(mydate.toTimeString());
+        console.log(d.toTimeString());
+
+        var hourDiff = mydate - d;    
+        console.log(hourDiff);
+        var milliseconde = Math.abs(mydate - d); //résultat en milliseconde
+        //milliseconde = milliseconde/(60*1000); //en minutes
+        //milliseconde = milliseconde/1000; //en secondes
+        console.log(milliseconde);
+
+        //Heure réel
+        var x = milliseconde;
+        var tempTime = moment.duration(x);
+        var timerStartSubCurrent = tempTime.minutes() +":"+tempTime.seconds();
+        console.log(timerStartSubCurrent);
+        
         str +='<li>';
         str +='<div class="collapsible-header"><i class="material-icons">games</i>Match '+i+' : '+jsondata[i]['0']+'</div>';
         str +='<div class="collapsible-body">';
         str +='<p> Résultats : '+jsondata[i]['1']+' / '+jsondata[i]['2']+'<br> Pénalité : '+jsondata[i]['3']+' / '+jsondata[i]['4']+' <br>';
-        str +='  Match commencé à '+jsondata[i]['5']+' <br> Chorno : '+jsondata[i]['5']+' (- current_date)  <br> ';
+        str +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono 00: '+timerStartSubCurrent+'<br> ';
         str +='  Status : '+jsondata[i]['6']+'  <br> </p>';
         str +='</div>';
         str +='</li>';
@@ -145,12 +164,13 @@ $("#btEnvoieParis").click(function(){
     var user ="user1";
     //var match = $("#dropdownid").find('option:selected').attr('id');
     var match = $("#dropdownid")[0].selectedIndex;
+    var matchVar = $( "#dropdownid option:selected" ).text();
     var equipe = $('input[name="group1"]:checked').val();
     var somme = $("#inputSomme").val();
     var user = $.cookie("userName");
 
-    alert("--"+user+"--match="+match+"--equipe="+equipe+"--"+somme)
-    if(user!=null && equipe!=null && somme!=null){
+    alert("--"+user+"--match="+match+"/"+matchVar+"--equipe="+equipe+"--"+somme)
+    if(user!=null && equipe!=null && somme!=null && match!=null && matchVar!="" && somme!=""){
         $.ajax({
             url: 'http://127.0.0.1:4444/postParis',
             type: 'POST',
@@ -159,7 +179,7 @@ $("#btEnvoieParis").click(function(){
             success: function(data,callback) {
                 var str = String(data);
                 $(".divParis").html(callback +" : "+data);
-              
+                $("#history").html(data);
             },
             error: function(json) {
                 $(".divParis").html(" erreur paris");
@@ -190,6 +210,7 @@ function printRandUser(){
     //console.debug($.cookie("userName")); 
     var randUser = generateRandUser();
     $("#userName").html(randUser);
+    $("#history").html("");
     $.cookie("userName", randUser, {Path: "/", expires: 30});
     console.debug($.cookie("userName"));
 }
