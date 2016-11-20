@@ -18,7 +18,9 @@ $("#btRefresh2").click(function(){
 $("#btRefresh").click(function(){
    //A garder
    $.ajax({
-        url: 'http://127.0.0.1:4444/getListMatch',
+       // url: 'http://127.0.0.1:4444/getListMatch',
+        dataType: "text",
+        url: 'data_test/getListMatch.json',
         type: 'GET',
         success: function(data,callback) {
             $(".div1").html(callback);
@@ -44,6 +46,7 @@ function miseAjourListHtml(data){
     //On efface l'ancien html
     $("#idListMatch").html("");
     var str= "";
+    var str2="";
     for(var i=0;i<Object.keys(jsondata).length;i++){
         var mydate = new Date(jsondata[i]['5']);
         var d = new Date();
@@ -68,11 +71,25 @@ function miseAjourListHtml(data){
         str +='<div class="collapsible-header"><i class="material-icons">games</i>Match '+i+' : '+jsondata[i]['0']+'</div>';
         str +='<div class="collapsible-body">';
         str +='<p> Résultats : '+jsondata[i]['1']+' / '+jsondata[i]['2']+'<br> Pénalité : '+jsondata[i]['3']+' / '+jsondata[i]['4']+' <br>';
-        str +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono 00: '+timerStartSubCurrent+'<br> ';
+        str +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono : '+timerStartSubCurrent+'<br> ';
         str +='  Status : '+jsondata[i]['6']+'  <br> </p>';
         str +='</div>';
         str +='</li>';
        $("#idListMatch").html(str);
+
+       str2 +='<div class="col s12 m6">';
+         str2 +='<div class="card-panel blue">';
+           str2 +='<span class="white-text">';
+           str2 +='Match '+i+' : '+jsondata[i]['0'];
+            str2 +='<p> Résultats : '+jsondata[i]['1']+' / '+jsondata[i]['2']+'<br> Pénalité : '+jsondata[i]['3']+' / '+jsondata[i]['4']+' <br>';
+            str2 +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono : '+timerStartSubCurrent+'<br> ';
+            str2 +='  Status : '+jsondata[i]['6']+'  <br> </p>';
+           str2 +='</span>';
+         str2 +='</div>';
+       str2 +='</div>';
+        $("#idListMatch2").html(str2);
+
+
     }
 }
 

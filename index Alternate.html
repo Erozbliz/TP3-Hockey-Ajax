@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+  <meta name="theme-color" content="#009688">
+  <!-- Windows Phone -->
+  <meta name="msapplication-navbutton-color" content="#009688">
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="#009688">
+  <meta name="author" content=" Hockey Online">
+  <meta name="description" content="Hockey Online" />      
+  <meta name="keywords" content="Hockey Online">
+
+  <title> Hockey Online</title>
+
+
+  <link rel="shortcut icon" href="favicon.ico"/>
+  <!-- Icon fav mobile  -->
+  <link rel="icon" type="image/png" href="fav_mobile.png" sizes="192x192">
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/materialize_style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <div class="navbar-fixed ">
+    <nav class="blue" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo white-text"> Hockey Online</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#scrollspy1" class="white-text">Accueil</a></li>
+          <li><a href="#scrollspy2" class="white-text">Match</a></li>
+          <li><a href="#scrollspy3" class="white-text">A Propos</a></li>
+          <li><a href="#scrollspy4" class="white-text">Contact</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#scrollspy1" class="">Accueil</a></li>
+          <li><a href="#scrollspy2" class="">Matchs</a></li>
+          <li><a href="#scrollspy3" class="">A Propos</a></li>
+          <li><a href="#scrollspy4" class="">Contact</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse white-text"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+  <!-- END NAV BAR -->
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6">
+        <div id="scrollspy2" class="section scrollspy">
+          <button id="btRefresh" class="btn waves-effect blue waves-light" type="submit" name="action">Actualiser
+            <i class="material-icons right">refresh</i>
+          </button>
+          <div class="chip div1">
+           &nbsp 
+         </div>
+       </div>
+     </div>
+     <div class="col s12 m6">
+      &nbsp &nbsp  &nbsp
+      <div class="switch">
+        Rafrachissement automatique :
+        <label>
+          Off
+          <input id="btAutoRefresh" type="checkbox">
+          <span class="lever"></span>
+          On
+        </label>
+        <div class="chip divTimer">
+         &nbsp 
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
+<div class="container">
+  <h4>Résultat des matchs</h4>
+  <div class="row" id="idListMatch2">
+  </div>
+</div>
+
+<div class="container">
+  <div id="" class="section scrollspy">
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card orange darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Paris Information</span>
+            <p>
+              Utilisateur : <span id="userName">x</span><br>
+              Historique : <span id="history"></span><br>
+            </p>
+          </div>
+          <div class="card-action">
+            <a id="btChangeUser" class="waves-effect waves-light btn blue-grey">Changer d'utilisateur</a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6">
+      <form action="#">
+        Choix pour le paris
+        <select id="dropdownid" >
+        </select>
+        <div class="">
+          <p>
+            <input name="group1" type="radio" id="radio1" value="1"/>
+            <label for="radio1">Equipe 1</label>
+            <input name="group1" type="radio" id="radio2" value="2"/>
+            <label for="radio2">Equipe 2</label>
+          </p>
+        </div>
+        <div class="input-field">
+          <i class="material-icons prefix">attach_money</i>
+          <input id="inputSomme"  type="text"  class="validate">
+          <label for="inputSomme">Somme</label>
+          <a class="waves-effect waves-light btn blue-grey" id="btEnvoieParis">Envoyer</a>
+          <div class="chip divParis">
+           &nbsp 
+         </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <footer class="page-footer blue">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Bienvenue sur Hocket online </h5>
+          <img class="responsive-img left" src="img/hockey xs.png">
+          <p class="grey-text text-lighten-4">&nbsp&nbsp Nécessite le serveur du TP1</p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text"></h5>
+          <ul>
+            <li><a class="white-text" href="#!">IFT 604 / 717</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text"></h5>
+          <ul>
+            <li><a class="white-text" href="#!"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Hocket online © 2016 / 2017    &nbsp &nbsp  &nbsp Made with <a class="grey-text text-lighten-4" href="http://materializecss.com" target="_BLANK">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+      <!--  Scripts-->
+      <script src="js/jquery-3.1.1.min.js"></script>
+      <!-- Cookie :https://github.com/carhartl/jquery-cookie -->
+      <script src="js/jquery.cookie.js"></script>
+      <script src="js/moment.js"></script>
+      <script src="js/materialize.js"></script>
+      <script src="js/init.js"></script>
+      <script src="js/ajax.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('select').material_select();
+            $('#inputSomme').on('change keyup', function() {
+              var sanitized = $(this).val().replace(/[^0-9]/g, '');
+              $(this).val(sanitized);
+            });
+        });
+
+        $(document).ready(function(){
+          //smooth scroll
+          $('.scrollspy').scrollSpy();
+
+          //shadow effect on hover
+          $(".overShadow").hover(function () {
+            $(this).addClass('z-depth-5');
+            $(this).removeClass('z-depth-1');
+          }, function () {
+            $(this).removeClass('z-depth-5');
+            $(this).addClass('z-depth-1');
+          });
+        });
+
+
+    
+      </script>
+
+</body>
+</html>
