@@ -82,15 +82,32 @@ function miseAjourListHtml(data){
            str2 +='<span class="white-text">';
            str2 +='Match '+i+' : '+jsondata[i]['0'];
             str2 +='<p> Résultats : '+jsondata[i]['1']+' / '+jsondata[i]['2']+'<br> Pénalité : '+jsondata[i]['3']+' / '+jsondata[i]['4']+' <br>';
-            str2 +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono : '+timerStartSubCurrent+'<br> ';
+            str2 +='  Match commencé à '+jsondata[i]['5']+' <br> Chrono : <span class="updateTime">'+timerStartSubCurrent+'</span><br> ';
             str2 +='  Status : '+jsondata[i]['6']+'  <br> </p>';
            str2 +='</span>';
          str2 +='</div>';
        str2 +='</div>';
         $("#idListMatch2").html(str2);
-
+        updateMyTime();
 
     }
+}
+
+//Permet d'incrementer le compteur pour le chrono
+function updateMyTime(){
+    setInterval(function() {
+        var x =[];
+        //var myObjectTime = $(".updateTime").text();
+        //var myStrTime = html(myObjectTime);
+        //console.log(myObjectTime);
+
+        $('.updateTime').each(function(index, obj)
+        {
+          x.push($(this).text());
+        });
+        console.log(x[0]);
+
+    }, 1000); 
 }
 
 
