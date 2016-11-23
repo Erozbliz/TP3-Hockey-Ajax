@@ -89,25 +89,46 @@ function miseAjourListHtml(data){
        str2 +='</div>';
         $("#idListMatch2").html(str2);
         updateMyTime();
+        //setInterval(updateMyTime(),1000);
 
     }
 }
 
 //Permet d'incrementer le compteur pour le chrono
+var boolSwitchTimer = false;
+var killcomteur = null;
 function updateMyTime(){
-    setInterval(function() {
+
+   
+        window.clearInterval(killcomteur);
+        var timerStartSubCurrent;
         var x =[];
-        //var myObjectTime = $(".updateTime").text();
-        //var myStrTime = html(myObjectTime);
-        //console.log(myObjectTime);
-
-        $('.updateTime').each(function(index, obj)
-        {
-          x.push($(this).text());
-        });
-        console.log(x[0]);
-
-    }, 1000); 
+        boolSwitchTimer=true;
+        killcomteur = setInterval(function() {
+            //var myObjectTime = $(".updateTime").text();
+            //var myStrTime = html(myObjectTime);
+            //console.log(myObjectTime);
+            var secondes;
+            $('.updateTime').each(function(index, obj)
+            {
+                x.push($(this).text());
+                var splitTimer = x[index].split(":");
+                var minutes = splitTimer[0];
+                secondes = splitTimer[1];
+                var intSecondes = parseInt(secondes)+1;
+                //console.log(minutes + " "+intSecondes);
+                var milliseconde = (minutes*60000)+(intSecondes*1000);
+                var tempTime = moment.duration(milliseconde);
+                timerStartSubCurrent = tempTime.minutes() +":"+tempTime.seconds();
+                //console.log(timerStartSubCurrent);
+                $('.updateTime').eq(index).html(timerStartSubCurrent);
+                
+            });
+            //console.log(x[0]); //contient le 1er timer
+            //$('.divTimer').html(timerStartSubCurrent);
+            x =[];
+        }, 1000); 
+  
 }
 
 
