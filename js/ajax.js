@@ -18,9 +18,9 @@ $("#btRefresh2").click(function(){
 $("#btRefresh").click(function(){
    //A garder
    $.ajax({
-       // url: 'http://127.0.0.1:4444/getListMatch',
+        url: 'http://127.0.0.1:4444/getListMatch',
         dataType: "text",
-        url: 'data_test/getListMatch.json',
+        //url: 'data_test/getListMatch.json',
         type: 'GET',
         success: function(data,callback) {
             $(".div1").html(callback);
@@ -234,7 +234,8 @@ $("#btEnvoieParis").click(function(){
             success: function(data,callback) {
                 var str = String(data);
                 $(".divParis").html(callback +" : "+data);
-                $("#history").html(data);
+                $("#userHistory").html(data);
+               $.cookie("userHistory", data, {Path: "/", expires: 30});
             },
             error: function(json) {
                 $(".divParis").html(" erreur paris");
@@ -248,6 +249,7 @@ $("#btEnvoieParis").click(function(){
 //nouveau user + nouveau cookie
 $("#btChangeUser").click(function(){
     $.removeCookie("userName");
+    $.removeCookie("userHistory");
     printRandUser();
 });
 
@@ -259,33 +261,51 @@ function generateRandUser(){
     return strRandUser;
 }
 
-//affiche le nom d'un utilisateur aléatoire + Cookie : userName
+//affiche le nom d'un utilisateur aléatoire + Cookie(user+historique) : userName
 function printRandUser(){
     console.debug("ATTENTION CHROME NE SUPPORTE PAS LES COOKIES LOCAL"); 
     //console.debug($.cookie("userName")); 
     var randUser = generateRandUser();
     $("#userName").html(randUser);
-    $("#history").html("");
+    //$("#userHistory").html("");
     $.cookie("userName", randUser, {Path: "/", expires: 30});
+    //$.cookie("userHistory", "", {Path: "/", expires: 30});
     console.debug($.cookie("userName"));
 }
 
-//genere un utilisateur au chargement de la page
+//genere un utilisateur au chargement de la page ou charge la personne précédente
 if($.cookie("userName")!=null){
     console.debug("Cookie userName trouvé"); 
     $("#userName").html($.cookie("userName"));
+    $("#userHistory").html($.cookie("userHistory"));
 }else{
     window.onload = printRandUser;
 }
 
 
 //Affiche un toast quand il y a un evenement
+var saveLastEvent = "";
 function notifEvent(){
     setInterval(function(){
-        Materialize.toast('I am a toast!', 2000) // 4000 is the duration of the toast
-    }, 5000);    
+        $.ajax({
+            url: 'http://127.0.0.1:4444/getEvent',
+            type: 'GET', 
+            dataType: "text",
+            success: function(data,callback) {
+                if(saveLastEvent.localeCompare(data)==0){
+                    // Materialize.toast("meme notif", 2000); // is the duration of the toast
+                }else{
+                    Materialize.toast('Event : '+data, 2000); // is the duration of the toast
+                    saveLastEvent = data;
+                }
+            },
+            error: function(json) {
+                $(".div1").html(" erreur notifEvent");
+            }
+        });
+    }, 700);    
 }
-notifEvent();
+//notifEvent();
 
 
 
