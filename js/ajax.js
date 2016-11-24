@@ -214,7 +214,7 @@ $("#btAutoRefresh").click(function(){
 
 
 
-
+//On envoie le pari
 $("#btEnvoieParis").click(function(){
     var user ="user1";
     //var match = $("#dropdownid").find('option:selected').attr('id');
@@ -277,6 +277,15 @@ if($.cookie("userName")!=null){
 }else{
     window.onload = printRandUser;
 }
+
+
+//Affiche un toast quand il y a un evenement
+function notifEvent(){
+    setInterval(function(){
+        Materialize.toast('I am a toast!', 2000) // 4000 is the duration of the toast
+    }, 5000);    
+}
+notifEvent();
 
 
 
