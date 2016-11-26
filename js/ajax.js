@@ -186,9 +186,9 @@ function refrehListMatch() {
 //bouton a off par défaut
 var boolSwitch = false;
 var counter = null;
+var seconde =10;
 $("#btAutoRefresh").click(function(){
      if(boolSwitch==false){
-        var seconde = 5;
         var cnt = 0;
         boolSwitch = true;
         counter = setInterval(function() {
@@ -224,7 +224,7 @@ $("#btEnvoieParis").click(function(){
     var somme = $("#inputSomme").val();
     var user = $.cookie("userName");
 
-    alert("--"+user+"--match="+match+"/"+matchVar+"--equipe="+equipe+"--"+somme)
+    alert("User="+user+" Math="+match+"/"+matchVar+" Equipe="+equipe+" Somme="+somme+"$")
     if(user!=null && equipe!=null && somme!=null && match!=null && matchVar!="" && somme!=""){
         $.ajax({
             url: 'http://127.0.0.1:4444/postParis',
@@ -250,6 +250,8 @@ $("#btEnvoieParis").click(function(){
 $("#btChangeUser").click(function(){
     $.removeCookie("userName");
     $.removeCookie("userHistory");
+    $("#userHistory").html("");
+    $("#userGain").html("");
     printRandUser();
 });
 
@@ -292,20 +294,24 @@ function notifEvent(){
             type: 'GET', 
             dataType: "text",
             success: function(data,callback) {
+                var values = data.split(':::'); //1 arg message ::: 2 arg gain sauvegarde
+
                 if(saveLastEvent.localeCompare(data)==0){
                     // Materialize.toast("meme notif", 2000); // is the duration of the toast
                 }else{
-                    Materialize.toast('Event : '+data, 2000); // is the duration of the toast
+                    Materialize.toast('Event : '+values[0], 2000); // is the duration of the toast
                     saveLastEvent = data;
+                    $("#userGain").html(values[1]);
+                    $(".div3").html(' serveur connecté <div class="progress"><div class="indeterminate"></div></div>');
                 }
             },
             error: function(json) {
-                $(".div1").html(" erreur notifEvent");
+                $(".div3").html(" erreur notifEvent (vérifier le serveur)");
             }
         });
     }, 700);    
 }
-//notifEvent();
+notifEvent();
 
 
 
