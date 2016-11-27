@@ -1,3 +1,4 @@
+//Pour tester
 $("#btRefresh2").click(function(){
 	alert ('sdf');
     $.ajax({
@@ -14,7 +15,7 @@ $("#btRefresh2").click(function(){
 });
 
 
-
+//Bouton pour rafrachir (maj de la liste des matchs + liste pour sélection des paris)
 $("#btRefresh").click(function(){
    //A garder
    $.ajax({
@@ -186,7 +187,7 @@ function refrehListMatch() {
 //bouton a off par défaut
 var boolSwitch = false;
 var counter = null;
-var seconde =10;
+var seconde =10; //<=============== Mettre ici le nombre de seconde pour l'autorefresh
 $("#btAutoRefresh").click(function(){
      if(boolSwitch==false){
         var cnt = 0;
@@ -299,7 +300,7 @@ function notifEvent(){
                 if(saveLastEvent.localeCompare(data)==0){
                     // Materialize.toast("meme notif", 2000); // is the duration of the toast
                 }else{
-                    Materialize.toast('Event : '+values[0], 2000); // is the duration of the toast
+                    Materialize.toast('Event : '+values[0], 3000); // is the duration of the toast
                     saveLastEvent = data;
                     $("#userGain").html(values[1]);
                     $(".div3").html(' serveur connecté <div class="progress"><div class="indeterminate"></div></div>');
