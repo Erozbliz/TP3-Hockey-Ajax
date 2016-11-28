@@ -217,13 +217,18 @@ $("#btAutoRefresh").click(function(){
 
 //On envoie le pari
 $("#btEnvoieParis").click(function(){
-    var user ="user1";
+    //var user ="user1";
     //var match = $("#dropdownid").find('option:selected').attr('id');
     var match = $("#dropdownid")[0].selectedIndex;
     var matchVar = $( "#dropdownid option:selected" ).text();
     var equipe = $('input[name="group1"]:checked').val();
     var somme = $("#inputSomme").val();
     var user = $.cookie("userName");
+
+    if (user == null){
+        user = $("#userName").text();
+        alert("Merci de ne pas utiliser Chrome(car les cookies local ne sont pas accepté)");
+    }
 
     alert("User="+user+" Math="+match+"/"+matchVar+" Equipe="+equipe+" Somme="+somme+"$")
     if(user!=null && equipe!=null && somme!=null && match!=null && matchVar!="" && somme!=""){
@@ -310,7 +315,7 @@ function notifEvent(){
                 $(".div3").html(" erreur notifEvent (vérifier le serveur)");
             }
         });
-    }, 700);    
+    }, 500);    
 }
 notifEvent();
 
