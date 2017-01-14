@@ -1,5 +1,5 @@
-## Présentation ##
-WEB client (Ajax(Jquery) + materializecss)
+## Introduction ##
+WEB client (HTML + Ajax(Jquery) + CSS (materializecss) + moment.js + jquery.cookie)
 
 ## Usage ##
 Use my project "Serveur_Client_Hoc_V3" to run the server<br>
